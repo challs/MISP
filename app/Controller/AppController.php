@@ -77,6 +77,7 @@ class AppController extends Controller
     public $components = array(
             'Session',
             'Auth' => array(
+                'className' => 'MISPAuth',
                 'authError' => 'Unauthorised access.',
                 'authenticate' => array(
                     'Form' => array(

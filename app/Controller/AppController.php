@@ -130,6 +130,7 @@ class AppController extends Controller
         $this->_setupDatabaseConnection();
         $this->_setupDebugMode();
 
+        $this->set('me', false);
         $this->set('ajax', $this->request->is('ajax'));
         $this->set('queryVersion', $this->__queryVersion);
         $this->loadModel('User');
@@ -458,9 +459,8 @@ class AppController extends Controller
                 );
                 $this->Log->save($log);
             }
-        } else {
-            $this->set('me', false);
         }
+
         $this->set('br', '<br />');
         $this->set('bold', array('<span class="bold">', '</span>'));
         if ($this->_isSiteAdmin()) {
@@ -971,7 +971,6 @@ class AppController extends Controller
 
     private function __preAuthException($message)
     {
-        $this->set('me', array());
         throw new ForbiddenException($message);
     }
 

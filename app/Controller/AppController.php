@@ -77,8 +77,6 @@ class AppController extends Controller
             'Auth' => array(
                 'className' => 'MISPAuth',
                 'authError' => 'Unauthorised access.',
-                'loginRedirect' => array('controller' => 'users', 'action' => 'routeafterlogin'),
-                'logoutRedirect' => array('controller' => 'users', 'action' => 'login', 'admin' => false),
                 'authenticate' => array(
                     'Form' => array(
                         'passwordHasher' => 'Blowfish',
@@ -106,6 +104,8 @@ class AppController extends Controller
 
     public function beforeFilter()
     {
+        $this->Auth->loginRedirect = Configure::read('MISP.baseurl') . '/users/routeafterlogin';
+        $this->Auth->logoutRedirect = Configure::read('MISP.baseurl') . '/users/login';
         $this->__sessionMassage();
         if (Configure::read('Security.allow_cors')) {
             // Add CORS headers

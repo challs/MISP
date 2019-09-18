@@ -46,7 +46,7 @@ For more information about configuring LinOTP see the [Management guide](https:/
                 'level'      => 'medium',
                 'salt'       => 'SOME SEED',
                 'cipherSeed' => 'SOME OTHER SEED',
-                'auth'=>array('LinOTPAUth.LinOTP'),
+                'auth'=>array('LinOTPAuth.LinOTP'),
             ),
    ```
 

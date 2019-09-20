@@ -33,6 +33,7 @@ class LoginController extends AppController
         $this->_setupDebugMode();
         $this->_setupBaseurl();
         $this->set('me', false);
+        $this->__sessionMassage();
 
         // load the authentication plugins, That list should contain the LinOTPAuth module amongst
         // one of the first entries. If that isn't the case we should not attempt to authenticate via this view.
@@ -70,22 +71,24 @@ class LoginController extends AppController
         self::$_identifyResult = $this->Auth->identify($this->request, $this->response);
         $challengeData = $this->_getLinOTPChallengeData();
 
-        // wipe out any previously known user data from the session
-        $this->Session->delete(AuthComponent::$sessionKey);
-
+        // Did we log into LinOTP?
         if (self::$_identifyResult && $challengeData === false) {
-            // This line feels very specific to logging users in yet it is found in multiple places throughout the code:
-            // Can we reduce the amount of duplications?
-            // It can also be found in the newly introduced `_loadAuthenticationPlugins` method. It should probably not be in there.
-            $this->Session->write(AuthComponent::$sessionKey, self::$_identifyResult);
 
             // after we decided that we can set the "standard" login session field we reset our own session data to avoid
             // issues when logging in again
             $this->_resetSessionData();
 
+            $this->Auth->login(self::$_identifyResult);
+
             // Finally redirect the user to the location they wanted to access.
             $this->redirect($this->Auth->redirectUrl());
-        } else if (is_object($challengeData) && isset($challengeData->transactionid)) {
+            return;
+        }
+
+        // wipe out any previously known user data from the session
+        $this->Session->delete(AuthComponent::$sessionKey);
+
+        if (is_object($challengeData) && isset($challengeData->transactionid)) {
             // We got some challenge data, store it in the session so we can pass
             $this->Session->write(self::LINOTP_TRANSACTION_ID_KEY, $challengeData->transactionid);
 

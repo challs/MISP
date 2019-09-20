@@ -1063,7 +1063,7 @@ class AppController extends Controller
         $this->redirect(array('controller' => 'servers', 'action' => 'serverSettings', 'diagnostics'));
     }
 
-    private function __sessionMassage()
+    protected function __sessionMassage()
     {
         if (!empty(Configure::read('MISP.uuid'))) {
             Configure::write('Session.cookie', 'MISP-' . Configure::read('MISP.uuid'));

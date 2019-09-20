@@ -129,11 +129,12 @@ class LinOTPAuthenticate extends BaseAuthenticate
         }
 
         if ($response['status'] !== true) {
-            CakeLog::error("LinOTP authentication failed. LinOTP reported some internal error.");
+            CakeLog::error("LinOTP authentication failed. LinOTP reported some internal error - please check audit log");
             return false;
         }
 
         if ($response['value'] !== true) {
+            CakeLog::error("LinOTP authentication failed - LinOTP reported a second factor verification fail - please check audit log");
             return false;
         }
 
@@ -170,6 +171,7 @@ class LinOTPAuthenticate extends BaseAuthenticate
             array_key_exists('LinOTPTransactionId', $request->params) &&
             array_key_exists("LinOTPUserName" , $request->params)
         ) {
+            CakeLog::debug("Auth second factor");
             $user = $this->_authenticateSecondFactor($request, $response);
         }
 

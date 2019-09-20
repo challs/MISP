@@ -4,7 +4,12 @@
 
 <?php echo $this->Form->create('LinOTPUserPassword'); ?>
 
-<div style="width: 460px; margin: 0 auto 20px;">
+<table style="width:1200px;margin-left:auto;margin-right:auto;">
+    <tr>
+    <td style="text-align:right;width:250px;padding-right:50px">
+        <?php if (Configure::read('MISP.welcome_logo')) echo $this->Html->image('custom/' . h(Configure::read('MISP.welcome_logo')), array('alt' => __('Logo'), 'onerror' => "this.style.display='none';")); ?>
+    </td>
+    <td style="width:450px">
 
     <?php if (Configure::read('MISP.welcome_text_top')) : ?>
         <div class="welcome_text_top" style="font-size:18px; padding-bottom: 15px">
@@ -14,9 +19,9 @@
 
     <div class="main_logo">
         <?php if (Configure::read('MISP.main_logo') && file_exists(APP . '/webroot/img/custom/' . Configure::read('MISP.main_logo'))) : ?>
-            <img src="<?php echo $baseurl ?>/img/custom/<?php echo h(Configure::read('MISP.main_logo')); ?>" style="width:100%" />
+            <img src="<?php echo $baseurl ?>/img/custom/<?php echo h(Configure::read('MISP.main_logo')); ?>" style=" display:block; margin-left: auto; margin-right: auto;" />
         <?php else : ?>
-            <img src="/img/misp-logo.png" style="width:100%" />
+            <img src="/img/misp-logo.png" style="display:block; margin-left: auto; margin-right: auto;"/>
         <?php endif; ?>
     </div>
 
@@ -43,8 +48,12 @@
         endif;
     ?>
 
-    <?php echo $this->Form->button(__('Login'), array('class' => 'btn btn-primary')); ?>
+    <?php echo $this->Form->button(__('Login'), array('class' => 'btn btn-primary test test')); ?>
 
-</div>
-
+    </td>
+    <td style="width:250px;padding-left:50px">
+        <?php if (Configure::read('MISP.welcome_logo2')) echo $this->Html->image('custom/' . h(Configure::read('MISP.welcome_logo2')), array('alt' => 'Logo2', 'onerror' => "this.style.display='none';")); ?>
+    </td>
+    </tr>
+    </table>
 <?php echo $this->Form->end(); ?>

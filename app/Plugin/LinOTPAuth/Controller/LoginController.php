@@ -3,6 +3,17 @@
 App::uses("LinOTPAuthenticate", "LinOTPAuth");
 App::uses('LinOTP', 'LinOTPAuth.Lib');
 
+/*
+ * LinOTP login pages controller
+ *
+ * Here, we handle the additional pages needed to authenticate
+ * against LinOTP. Depending on the type of token used by the
+ * user, we may need to run multiple steps before the user is
+ * logged in.
+ *
+ * The actual authentication is carried out by the authentication
+ * class LinOTPAuthenticate.
+ */
 class LoginController extends AppController
 {
     public $components = array(

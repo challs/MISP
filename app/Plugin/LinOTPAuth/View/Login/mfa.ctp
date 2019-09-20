@@ -29,7 +29,7 @@
     <legend style="width:450px;"><?php echo __('Second Factor'); ?></legend>
 
     <?php
-        echo $this->Form->input('OTP', array('autocomplete' => 'off', 'type'=>'number'));
+        echo $this->Form->input('OTP', array('autocomplete' => 'off', 'type'=>'number', 'autofocus'));
     ?>
 
     <div class="clear"></div>

@@ -80,6 +80,13 @@ class LoginController extends AppController
 
             $this->Auth->login(self::$_identifyResult);
 
+            $redir = $this->Session->read('Auth.redirect');
+
+            // Hack: work around problem if redirect URL is old login method
+            if ($redir == '/users/login') {
+                $this->Session->write('Auth.redirect', '/');
+            }
+
             // Finally redirect the user to the location they wanted to access.
             $this->redirect($this->Auth->redirectUrl());
             return;

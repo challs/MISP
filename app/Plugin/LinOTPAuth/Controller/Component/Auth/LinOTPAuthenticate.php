@@ -67,19 +67,6 @@ class LinOTPAuthenticate extends BaseAuthenticate
             $user['LinOTPChallenges'] = $response['detail'];
         }
 
-        // When the user logs in for the first time a password prompt will appear
-        // To avoid that very prompt we are changing the `change_pw` value to '0'.
-        if ($user['change_pw'] === "1") {
-            $userModel = ClassRegistry::init($this->settings['userModel']);
-            $user['change_pw'] = '0';
-            $userModel->set(array(
-                "id" => $user['id'],
-                "change_pw" => '0',
-            ));
-            $userModel->save(array('User' => $user), false);
-            $user = $this->_findUser($email);
-        }
-
         if (!$user) {
             // normalise the negative case to false
             return false;

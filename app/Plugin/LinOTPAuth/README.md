@@ -8,6 +8,14 @@ For more information about configuring LinOTP see the [Management guide](https:/
 
 ## Configuration
 
+### Create admin user
+
+You need to ensure that the initial user is already present in the database.
+You can do this by running the UserInit command:
+
+    /var/www/MISP/app/Console/cake UserInit
+
+
 ### Load the plugin
 
 Enable the `LinOTPAuth` plugin in `app/config/bootstrap.php`
